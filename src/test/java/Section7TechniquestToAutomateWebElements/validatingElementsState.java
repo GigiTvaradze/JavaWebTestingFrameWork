@@ -14,6 +14,8 @@ public class validatingElementsState {
     @Test(description = "Validating if UI Elements are disabled or enabled with Attributes")
     public void validatingElementsState() throws InterruptedException {
 
+        By roundTripRadioButtonLocator = By.cssSelector("div[data-testid='round-trip-radio-button']");
+
         System.setProperty("webdriver.chrome.driver","C://Program Files (x86)//WebDrivers//chromedriver.exe");
         WebDriver driver = new ChromeDriver();
         driver.get("https://www.spicejet.com/");
@@ -30,7 +32,7 @@ public class validatingElementsState {
             System.out.println("Button is disabled");
         }
 
-        driver.findElement(By.cssSelector("div[data-testid='round-trip-radio-button']")).click();
+        driver.findElement(roundTripRadioButtonLocator).click();
 
         if(wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div[data-testid='return-date-dropdown-label-test-id']")))
                 .getAttribute("class")
