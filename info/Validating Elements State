@@ -1,0 +1,15 @@
+Validating whether UI elements (like buttons, input fields, checkboxes, etc.) are enabled or disabled is an essential part of UI testing.
+You can do this by checking the element's attributes or using Selenium WebDriver's built-in methods.
+
+Selenium provides a straightforward method called isEnabled() to check if a UI element is enabled.
+This method returns true if the element is enabled and false if it is disabled.
+
+approach :
+isEnabled() Method: Use this to directly check if an element is enabled. It's the most straightforward approach.
+Attribute Checks: For elements disabled by attributes like disabled, readonly, or custom attributes, you can inspect these attributes to determine the element's state.
+Custom Attributes: If your application uses custom logic to disable elements, check those attributes accordingly.
+
+P.S: Selenium WebDriver’s isEnabled() Method is not working as expected
+
+For me Attribute Check is optimal approach .getAttribute("class")
+                                                     .contains("r-14lw9ot")){
