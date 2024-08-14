@@ -1,0 +1,42 @@
+Perhaps the most common challenge for browser automation is ensuring that the web application is in a state to execute a particular Selenium command as desired.
+The processes often end up in a race condition where sometimes the browser gets into the right state first (things work as intended)
+ And sometimes the Selenium code executes first (things do not work as intended). This is one of the primary causes of flaky tests.
+
+
+All navigation commands wait for a specific "readyState" value based on the page load strategy (the default value to wait for is "complete") before the driver returns control to the code.
+The readyState only concerns itself with loading assets defined in the HTML, but loaded JavaScript assets often result in changes to the site, and elements that need to be interacted with may not yet be on the page when the code is ready to execute the next Selenium command.
+Similarly, in a lot of single page applications, elements get dynamically added to a page or change visibility based on a click. An element must be both present and displayed on the page in order for Selenium to interact with it.
+
+Implicit waits:
+This is a global setting that applies to every element location call for the entire session. The default value is 0, which means that if the element is not found, it will immediately return an error.
+If an implicit wait is set, the driver will wait for the duration of the provided value before returning the error.
+ Note that as soon as the element is located, the driver will return the element reference and the code will continue executing.
+
+    driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
+
+Explicit waits:
+Explicit waits are loops added to the code that poll the application for a specific condition to evaluate as true before it exits the loop and continues to the next command in the code.
+ If the condition is not met before a designated timeout value, the code will give a timeout error.
+
+    Wait<WebDriver> wait = new WebDriverWait(driver, Duration.ofSeconds(2));
+    wait.until(d -> revealed.isDisplayed());
+
+Customization-FluentWait:
+The Wait class can be instantiated with various parameters that will change how the conditions are evaluated.
+This can include:
+Changing how often the code is evaluated (polling interval)
+Specifying which exceptions should be handled automatically
+Changing the total timeout length
+Customizing the timeout message
+
+ Wait<WebDriver> wait =
+        new FluentWait<>(driver)
+            .withTimeout(Duration.ofSeconds(2))
+            .pollingEvery(Duration.ofMillis(300))
+            .ignoring(ElementNotInteractableException.class);
+
+    wait.until(
+        d -> {
+          revealed.sendKeys("Displayed");
+          return true;
+        });

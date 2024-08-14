@@ -1,0 +1,27 @@
+In a Maven project, you need to add the following dependencies to your pom.xml file:
+< mvnrepository.com >
+
+<dependency>
+    <groupId>org.seleniumhq.selenium</groupId>
+    <artifactId>selenium-java</artifactId>
+    <version>4.23.0</version>
+</dependency>
+
+  Test Framework:
+For TestNG::
+
+<dependency>
+    <groupId>org.testng</groupId>
+    <artifactId>testng</artifactId>
+    <version>7.10.2</version>
+    <scope>test</scope>
+</dependency>
+
+For JUnit:
+
+<dependency>
+    <groupId>org.junit.jupiter</groupId>
+    <artifactId>junit-jupiter-api</artifactId>
+    <version>5.11.0-M2</version>
+    <scope>test</scope>
+</dependency>

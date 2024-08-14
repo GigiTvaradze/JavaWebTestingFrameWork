@@ -1,0 +1,39 @@
+Dynamic dropdowns are a bit more complex compared to static dropdowns
+ because their options are loaded dynamically based on user interactions, AJAX calls, or other conditions.
+They often involve a combination of JavaScript and HTML, and the options might not be present in the initial HTML but are populated later.
+
+<div class="dropdown">
+    <button class="dropdown-toggle">Select an option</button>
+    <ul class="dropdown-menu">
+        <li class="dropdown-item">Option 1</li>
+        <li class="dropdown-item">Option 2</li>
+        <li class="dropdown-item">Option 3</li>
+    </ul>
+</div>
+
+Dynamic dropdowns are often implemented using custom HTML and JavaScript.
+They might not use the <select> tag but rather a combination of other HTML elements like <div>, <ul>, and <li>.
+
+Interact with the Dynamic Dropdown:
+
+Click to Open the Dropdown
+
+// Locate and click the dropdown button to open the dropdown menu
+WebElement dropdownButton = driver.findElement(By.cssSelector(".dropdown-toggle"));
+dropdownButton.click();
+
+// Locate and select an option from the dropdown menu
+WebElement option = driver.findElement(By.xpath("//ul[@class='dropdown-menu']/li[text()='Option 2']"));
+option.click();
+
+
+Handling Asynchronous Content:
+since dynamic dropdowns often involve asynchronous content loading (e.g., via AJAX),
+you might need to use explicit waits to ensure the options are available before interacting with them:
+
+WebDriverWait wait = new WebDriverWait(driver, 10);
+WebElement dropdownButton = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".dropdown-toggle")));
+dropdownButton.click();
+
+WebElement option = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//ul[@class='dropdown-menu']/li[text()='Option 2']")));
+option.click();

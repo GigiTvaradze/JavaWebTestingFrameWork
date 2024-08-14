@@ -1,0 +1,11 @@
+WebDriver drives a browser natively, as a user would, either locally or on a remote machine using the Selenium server.
+
+Selenium WebDriver:
+
+WebDriver is designed as a simple and more concise programming interface.
+
+WebDriver is a compact object-oriented API.
+
+It drives the browser effectively.
+
+https://googlechromelabs.github.io/chrome-for-testing/known-good-versions-with-downloads.json

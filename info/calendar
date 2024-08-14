@@ -1,0 +1,54 @@
+Handling a calendar widget in Selenium WebDriver involves interacting with
+> date pickers or calendar popups <
+that are commonly used in web applications to allow users to select dates.
+
+Since calendars can vary greatly in their HTML structure and behavior, the approach can differ based on the specific implementation.
+
+Common Steps to Handle a Calendar:
+
+Locate and Click the Calendar Widget:
+Click on the calendar input field or button to open the calendar widget.
+
+Identify the Date Elements:
+Use locators to identify the days, months, or years in the calendar.
+
+Navigate Through the Calendar (Optional):
+Some calendars require navigating through months or years if the desired date is not in the current view.
+
+Select the Desired Date:
+Click on the desired date to select it.
+
+Handling Dynamic Calendars:
+
+  // Open the calendar widget
+            WebElement dateInput = driver.findElement(By.id("calendarInput"));
+            dateInput.click();
+
+            // Loop to navigate through months
+            while (true) {
+                // Find the displayed month and year
+                WebElement displayedMonthYear = driver.findElement(By.className("ui-datepicker-title"));
+
+                // Check if the displayed month/year matches the desired date
+                if (displayedMonthYear.getText().equals("August 2024")) {
+                    break;
+                }
+
+                // If not, click the next button to navigate
+                WebElement nextButton = driver.findElement(By.xpath("//a[@title='Next']"));
+                nextButton.click();
+            }
+
+            // Select the desired day
+            WebElement date = driver.findElement(By.xpath("//td[@data-day='15']"));
+            date.click();
+        } finally {
+            // Close the browser
+            driver.quit();
+        }
+
+Selecting Date Using JavaScript Executor (Alternative Approach):
+
+            // Use JavaScript to set the date directly
+            JavascriptExecutor js = (JavascriptExecutor) driver;
+            js.executeScript("document.getElementById('calendarInput').value = '2024-08-15';");
