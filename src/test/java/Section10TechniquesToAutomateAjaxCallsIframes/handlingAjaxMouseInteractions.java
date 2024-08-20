@@ -78,7 +78,6 @@ public class handlingAjaxMouseInteractions{
         driver.manage().window().maximize();
         driver.get("https://rahulshettyacademy.com/loginpagePractise/#");
 
-
+        //driver.switchTo().frame(WebElement)
     }
-
 }
