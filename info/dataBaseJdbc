@@ -1,0 +1,47 @@
+Database Testing with Selenium
+Database testing involves validating the backend data and ensuring it matches the application's front end. Although Selenium is primarily used for UI testing, it can also be integrated with database testing to verify that the data displayed on the front end corresponds with what's stored in the backend database.
+Why Perform Database Testing with Selenium?
+1. **Data Integrity**: Ensure that the data is correctly stored, retrieved, and manipulated in the database, matching the application's requirements.
+2. **Data Consistency**: Verify that data remains consistent throughout various states and transactions in the application.
+3. **End-to-End Validation**: Perform comprehensive tests by validating both the UI and database states, ensuring a seamless user experience.
+Key Components of Database Testing
+1. **Database Connection**: Establish a connection to the database using JDBC or any relevant database driver.
+2. **Executing SQL Queries**: Use SQL queries to retrieve, update, or validate data directly from the database.
+3. **Validation**: Compare data from the UI (retrieved using Selenium) with the data from the database to ensure consistency.
+
+
+Integrating Database Testing with Selenium
+To integrate database testing with Selenium, you can follow these steps:
+
+1. Set Up JDBC Driver:
+Download and configure the appropriate JDBC driver for your database (e.g., MySQL, Oracle, PostgreSQL).
+Add the JDBC driver to your project’s dependencies. For Maven projects, this is typically done in the pom.xml file.
+<dependency>
+    <groupId>mysql</groupId>
+    <artifactId>mysql-connector-java</artifactId>
+    <version>8.0.33</version>
+</dependency>
+
+2. Establish a Database Connection:
+Use DriverManager to create a connection to the database. This will allow you to run SQL queries from your Selenium tests.
+Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/myDatabase", "username", "password");
+
+3.Execute SQL Queries:
+Use Statement or PreparedStatement to execute SQL queries. You can select data, verify it against the UI, or perform CRUD (Create, Read, Update, Delete) operations.
+
+Statement stmt = con.createStatement();
+ResultSet rs = stmt.executeQuery("SELECT * FROM Users WHERE userId = 1");
+
+4. Compare Data:
+Use Selenium to retrieve data from the UI and compare it with the data fetched from the database. This ensures that the front end is correctly reflecting the database state.
+
+String uiUserName = driver.findElement(By.id("username")).getText();
+String dbUserName = rs.getString("username");
+Assert.assertEquals(uiUserName, dbUserName);
+
+5. Close Database Connection:
+Always close the Connection, Statement, and ResultSet objects to prevent memory leaks and ensure efficient use of resources.
+
+rs.close();
+stmt.close();
+con.close();

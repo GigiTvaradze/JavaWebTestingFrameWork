@@ -1,0 +1,14 @@
+The following methods are useful to handle alerts in Selenium:
+
+
+Void dismiss(): This method is used when the ‘Cancel’ button is clicked in the alert box.
+driver.switchTo().alert().dismiss();
+
+Void accept(): This method is used to click on the ‘OK’ button of the alert.
+driver.switchTo().alert().accept();
+
+String getText(): This method is used to capture the alert message.
+driver.switchTo().alert().getText();
+
+Void sendKeys(String stringToSend): This method is used to send data to the alert box.
+driver.switchTo().alert().sendKeys("Text");
