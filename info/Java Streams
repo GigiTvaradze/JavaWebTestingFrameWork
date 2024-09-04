@@ -1,0 +1,140 @@
+Java Streams, Lambda Expressions for Building Optimized Code !!!
+
+Streams are not data structures but tools for performing operations like map-reduce transformations on collections.
+This functionality—java.util.stream—supports functional-style operations on streams of elements.
+
+By using Streams we can perform various aggregate operations on the data returned from collections classes By reduce the complexity of code.
+
+Lambda Expressions ( -> ).
+it divides the lambda expressions in two parts:
+The left side specifies the parameters required by the expression, which could also be empty if no parameters are required.
+The right side is the lambda body which specifies the actions of the lambda expression.
+
+
+1. Java Streams
+What is a Stream?
+A Stream in Java is a sequence of elements supporting sequential and parallel aggregate operations. Unlike collections, streams do not store data but operate on the source data. Streams are functional in nature, meaning operations on a stream produce a result without modifying its source.
+
+Key Characteristics:
+No Storage: Streams don't store data; they provide a view of the data and perform operations on it.
+Laziness: Streams are lazy; they do not perform any operations until it is necessary, which means computations are only performed when the terminal operation is invoked.
+Possibly Unbounded: Streams can be finite or infinite.
+Consumed Once: Streams cannot be reused once they are consumed by a terminal operation.
+
+Stream Operations:
+Stream operations can be classified into two categories:
+
+Intermediate Operations: These operations are lazy and return a stream, allowing method chaining. Examples include filter, map, sorted, etc.
+Terminal Operations: These operations produce a result or a side-effect, such as collect, forEach, count, etc.
+
+Common Stream Methods:
+filter: Filters elements based on a predicate.
+map: Transforms elements by applying a function.
+sorted: Sorts elements in a natural order or using a comparator.
+forEach: Performs an action for each element.
+collect: Gathers elements into a collection, such as a List or Set.
+count: Counts the number of elements.
+reduce: Aggregates elements using an associative function.
+
+
+public class StreamExample {
+    public static void main(String[] args) {
+        List<String> names = Arrays.asList("Anna", "Bob", "Charlie", "David", "Alice");
+
+        // Filter names starting with 'A' and count them
+        long count = names.stream()
+                          .filter(name -> name.startsWith("A"))
+                          .count();
+
+        System.out.println("Number of names starting with 'A': " + count);
+    }
+}
+
+
+public class StreamExample {
+    public static void main(String[] args) {
+        List<String> names = Arrays.asList("Anna", "Bob", "Charlie", "David", "Alice");
+
+        // Convert all names to uppercase and collect them into a list
+        List<String> uppercaseNames = names.stream()
+                                           .map(String::toUpperCase)
+                                           .collect(Collectors.toList());
+
+        System.out.println(uppercaseNames);
+    }
+}
+
+
+Lambda Expressions
+What is a Lambda Expression?
+A lambda expression in Java is a concise way to represent an anonymous function (a function without a name). It provides a clear and concise syntax to implement functional interfaces (interfaces with a single abstract method).
+
+Syntax of a Lambda Expression:
+(parameters) -> expression
+
+OR
+
+(parameters) -> { statements; }
+
+import java.util.Arrays;
+import java.util.List;
+
+public class LambdaStreamExample {
+    public static void main(String[] args) {
+        List<String> names = Arrays.asList("Anna", "Bob", "Charlie", "David", "Alice");
+
+        // Using lambda expression to filter and print names starting with 'A'
+        names.stream()
+             .filter(name -> name.startsWith("A"))
+             .forEach(System.out::println);
+    }
+}
+
+
+Common Use Cases of Streams and Lambda Expressions:
+1: Filtering and Collecting Data
+
+public class FilterCollectExample {
+    public static void main(String[] args) {
+        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+
+        // Filter even numbers and collect them into a list
+        List<Integer> evenNumbers = numbers.stream()
+                                           .filter(n -> n % 2 == 0)
+                                           .collect(Collectors.toList());
+
+        System.out.println(evenNumbers); // Output: [2, 4, 6, 8, 10]
+    }
+}
+
+2. Reducing Data to a Single Value
+
+public class ReduceExample {
+    public static void main(String[] args) {
+        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);
+
+        // Sum all numbers in the list
+        int sum = numbers.stream()
+                         .reduce(0, (a, b) -> a + b);
+
+        System.out.println(sum); // Output: 15
+    }
+}
+
+3. Mapping Data to Different Forms
+
+public class MapExample {
+    public static void main(String[] args) {
+        List<String> names = Arrays.asList("John", "Jane", "Jack");
+
+        // Map each name to its length
+        names.stream()
+             .map(String::length)
+             .forEach(System.out::println); // Output: 4 4 4
+    }
+}
+
+
+Conclusion
+Java Streams and Lambda Expressions greatly enhance the flexibility and expressiveness of Java. Streams provide a powerful way to process collections of data in a declarative manner, while Lambda Expressions enable concise and readable function implementations.
+By using these features together, you can write cleaner, more maintainable code.
