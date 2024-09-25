@@ -1,0 +1,61 @@
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import java.util.Set;
+
+public class SwitchWindowExample {
+    public static void main(String[] args) {
+        // Set the path for the ChromeDriver executable
+        System.setProperty("webdriver.chrome.driver", "path/to/chromedriver");
+
+        // Create an instance of the ChromeDriver
+        WebDriver driver = new ChromeDriver();
+
+        // Open the main window
+        driver.get("https://example.com");
+
+        // Store the current window handle (main window)
+        String mainWindowHandle = driver.getWindowHandle();
+
+        // Perform action to open a new window (click a link)
+        driver.findElement(By.id("linkToOpenNewWindow")).click();
+
+        // Get all window handles
+        Set<String> allWindowHandles = driver.getWindowHandles();
+
+        // Iterate through all the window handles
+        for (String handle : allWindowHandles) {
+            if (!handle.equals(mainWindowHandle)) {
+                // Switch to the new window
+                driver.switchTo().window(handle);
+
+                // Perform actions in the new window
+                System.out.println("Title of the new window: " + driver.getTitle());
+
+                // You can perform more actions in the new window here
+
+                // Close the new window
+                driver.close();
+            }
+        }
+
+        // Switch back to the main window
+        driver.switchTo().window(mainWindowHandle);
+
+        // Perform further actions in the main window
+        System.out.println("Back to the main window title: " + driver.getTitle());
+
+        // Close the browser
+        driver.quit();
+    }
+}
+
+
+Explanation:
+System.setProperty("webdriver.chrome.driver", "path/to/chromedriver");: Sets the path to the ChromeDriver executable.
+driver.getWindowHandle();: Retrieves the current window handle (main window).
+driver.findElement(By.id("linkToOpenNewWindow")).click();: Clicks on a link or button that opens a new window.
+driver.getWindowHandles();: Retrieves a set of all window handles.
+driver.switchTo().window(handle);: Switches to a window using its handle.
+driver.close();: Closes the current window.
+driver.switchTo().window(mainWindowHandle);: Switches back to the main window.
