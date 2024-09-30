@@ -1,0 +1,44 @@
+TestNG.xml file is a configuration file that helps in organizing our tests.
+It makes a tester’s job easier by controlling the execution of tests by putting all the test cases together and run it under one XML file.
+
+Running a TestNG. xml File.
+
+
+Hierarchy of the XML File
+Here’s the hierarchy or structure (anarchy) of the XML file:
+
+suite
+    test
+        classes
+            class (name="Section16TestNG.testNG")
+            class (name="Section16TestNG.anotherTestNGclass")
+
+Hierarchical Breakdown:
+At the top level, you have the <suite> element.
+Inside the <suite> element, there’s a <test> element, which represents one test set.
+Inside the <test> element, there is a <classes> element, which holds a list of <class> elements.
+Each <class> element specifies a test class that TestNG will execute.
+
+
+Major advantages of TestNG.xml file are:
+
+It provides parallel execution of test methods.
+It allows the dependency of one test method on another test method.
+It helps in prioritizing our test methods.
+It allows grouping of test methods into test groups.
+It supports the parameterization of test cases using @Parameters annotation.
+It helps in Data-driven testing using @DataProvider annotation.
+It has different types of assertions that help in validating the expected results with the actual results.
+It has different types of HTML reports, Extent reports, etc. for a better and clear understanding of our test summary.
+It has listeners who help in creating logs.
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Suite">  //module
+    <test name="Test">  //folderName - test folders  A Test is represented by <test> and can contain one or more TestNG classes.
+         <classes>
+             <class name="testNG"/>  //A Class is a Java class that contains TestNG annotations.
+          </classes>
+     </test> <!-- Test -->
+</suite> <!-- Suite -->

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Suite">
+
+    <test name="Test">
+        <!-- folderName - test folders -->
+        <classes>
+            <class name="Section16TestNG.testNG"/>
+            <class name="Section16TestNG.TestPriorityExample"></class>
+        </classes>
+    </test> <!-- Test -->
+
+    <test name="FunctionalTesting">
+        <classes>
+            <class name="Section8FunctionalTesting.SendingArrayToCart">
+                <methods>
+                   <exclude name="exclude"/>
+                    <include name="include"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+</suite> <!-- Suite -->
