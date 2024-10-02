@@ -1,0 +1,147 @@
+@Test(enabled = false): You can momentarily disable a test method without deleting it
+
+@BeforeMethod and @AfterMethod: Each test method in the current class should have a method called @BeforeMethod run both before and after it.
+                                useful for typical pre-test preparation and clean-up following tests.
+                                    @BeforeMethod
+                                    public void setUp() {
+                                        // Perform setup actions before each test method
+                                    }
+
+                                    @AfterMethod
+                                    public void tearDown() {
+                                        // Perform teardown actions after each test method
+                                    }
+
+@BeforeClass and @AfterClass: A method designated as @BeforeClass and @AfterClass shall execute once before and once after all test methods in the current class.
+                              useful for setting up and taking down classes.
+                                  @BeforeClass
+                                  public void classSetUp() {
+                                      // Perform setup actions before all test methods in this class
+                                  }
+
+                                  @AfterClass
+                                  public void classTearDown() {
+                                      // Perform teardown actions after all test methods in this class
+                                  }
+
+@BeforeSuite and @AfterSuite: These annotations, @BeforeSuite and @AfterSuite, in a test configuration file specify which operations are performed before and after each test suite.
+                              For international setup and disassembly, frequently used.
+                                  @BeforeSuite
+                                  public void suiteSetUp() {
+                                      // Perform setup actions before all test suites
+                                  }
+
+                                  @AfterSuite
+                                  public void suiteTearDown() {
+                                      // Perform teardown actions after all test suites
+                                  }
+
+@BeforeTest and @AfterTest: Similar to suite-level annotations, @BeforeTest and @AfterTest in your test configuration XML indicate the test methods that are run before and after all other test methods within a certain <test> element
+                                 @BeforeTest
+                                 public void beforeTest() {
+                                     // Set up resources before the test suite
+                                     System.out.println("BeforeTest: Setting up resources...");
+                                 }
+
+                                 @AfterTest
+                                 public void afterTest() {
+                                     // Clean up resources after the test suite
+                                     System.out.println("AfterTest: Cleaning up resources...");
+                                 }
+
+@Parameters: Indicates a method parameter’s value should be retrieved from the test suite’s XML file based on the parameter name.
+             It is typically used in conjunction with @DataProvider to pass parameters to test methods.
+                 @Test
+                 @Parameters("browser")
+                 public void testWithParameter(String browser) {
+                     // Test logic based on the 'browser' parameter
+                 }
+
+@Listeners: This annotation specifies one or more listener classes for your test suite that should be alerted of test events.
+             Listeners have the option to intervene before and after specific events, such as the start of a test, its failure, and the end of the suite.
+            @Listeners(MyListener.class)
+            public class ListenerExampleTest {
+
+                @Test
+                public void testMethod() {
+                    System.out.println("Executing testMethod");
+                }
+            }
+
+TestNG Annotations Order of Execution:
+@BeforeSuite
+    @BeforeTest
+        @BeforeClass
+            @BeforeMethod
+                @Test
+            @AfterMethod
+        @AfterClass
+    @AfterTest
+@AfterSuite
+
+
+
+public class Configuration_Annotations {
+
+
+@BeforeSulte
+public void beforeSuite()
+{
+    System.out.println("Its a beforesuite annotation");
+}
+
+
+@BeforeTest
+public void beforeTest()
+{
+    System.out.println("Its a beforetest annotation");
+}
+
+
+@BeforeClass
+public void beforeClass()
+{
+    System.out.println("Its a beforeclass annotation");
+}
+
+
+@BeforeMethod
+public void beforeMethod()
+{
+    System.out.println("Its a beforemethod annotation");
+}
+
+
+@Test
+public void scheduleAppointment()
+{
+    System.out.println("Its a test annotation");
+}
+
+
+@AfterMethod
+public void afterMethod()
+{
+     System.out.println("Its an aftermethod annotation");
+}
+
+
+@AfterClass
+public void afterClass()
+{
+    System.out.println("Its an afterclass annotation");
+}
+
+
+@AfterTest
+public void afterTest()
+{
+    System.out.println("Its an aftertest annotation");
+}
+
+
+@AfterSuite
+public void afterSuite()
+{
+    System.out.println("Its an aftersuite annotation");
+}

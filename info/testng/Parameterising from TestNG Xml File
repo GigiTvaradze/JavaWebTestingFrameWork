@@ -1,0 +1,43 @@
+Parameterization in TestNG allows you to pass parameters to your test methods from the TestNG XML file,which helps in making tests more dynamic and reusable.
+You can define the parameters in the XML file and then access them in your test methods using the @Parameters annotation.
+
+You can define parameters in the TestNG XML file using the <parameter> tag.
+
+<suite name="Test Suite">
+    <test name="Parameter Test">
+        <parameter name="username" value="testUser"/>
+        <parameter name="password" value="testPass"/>
+        <classes>
+            <class name="ParameterTestExample"/>
+        </classes>
+    </test>
+</suite>
+
+
+Accessing Parameters in Test Method:
+retrieve the parameter values by using the @Parameters annotation
+
+ @Test
+    @Parameters({ "username", "password" })
+    public void loginTest(String username, String password) {
+        System.out.println("Username: " + username);
+        System.out.println("Password: " + password);
+        // Add login logic here
+    }
+
+
+    Handling Multiple Parameters:
+<parameter name="url" value="http://example.com"/>
+<parameter name="browser" value="chrome"/>
+
+@Parameters({ "url", "browser" })
+public void launchBrowserTest(String url, String browser) {
+    System.out.println("Launching " + browser + " with URL: " + url);
+    // Add logic to launch browser and navigate to URL
+}
+
+Benefits of Parameterization:
+
+Reusability: Write generic tests and supply different values via the XML, reducing code duplication.
+Flexibility: Switch environments (QA, Prod) or configurations easily by changing the XML.
+Separation of Concerns: Keep test data separate from the test logic, making tests easier to maintain.

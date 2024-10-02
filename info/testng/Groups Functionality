@@ -1,0 +1,64 @@
+In TestNG, the groups functionality allows you to organize your test methods into different categories or groups, which provides flexibility in test execution.
+Instead of executing all tests at once, you can selectively run tests that belong to specific groups, making it easier to manage large test suites.
+
+You can assign a test method to one or more groups using the groups attribute in the @Test annotation.
+
+public class GroupTestExample {
+
+    @Test(groups = { "sanity" })
+    public void testMethod1() {
+        System.out.println("Test Method 1 - Sanity Group");
+    }
+
+    @Test(groups = { "regression" })
+    public void testMethod2() {
+        System.out.println("Test Method 2 - Regression Group");
+    }
+
+    @Test(groups = { "sanity", "regression" })
+    public void testMethod3() {
+        System.out.println("Test Method 3 - Both Sanity and Regression Groups");
+    }
+}
+
+Running Groups via TestNG XML:
+You can specify which groups to include or exclude in your test execution using the TestNG XML file.
+
+
+<suite name="Test Suite">
+    <test name="Test Group Execution">
+        <groups>
+            <run>
+                <include name="sanity"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="GroupTestExample" />
+        </classes>
+    </test>
+</suite>
+
+
+<groups>
+    <run>
+        <include name="sanity"/>
+        <exclude name="regression"/>
+    </run>
+</groups>
+
+
+@Test(groups = "sanity")
+public void sanityTest() {
+    System.out.println("Sanity Test");
+}
+
+@Test(groups = "regression", dependsOnGroups = "sanity")
+public void regressionTest() {
+    System.out.println("Regression Test, depends on Sanity");
+}
+
+
+ Executing Groups from Command Line:
+With Maven:
+
+ mvn test -Dgroups="sanity"
