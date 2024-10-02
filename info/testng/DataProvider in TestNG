@@ -1,0 +1,70 @@
+The DataProvider in TestNG is a powerful feature that allows you to run a test method multiple times with different sets of data.
+DataProvider allows for dynamic and more complex test data input, making your test cases more flexible and reusable.
+
+Using DataProvider from Another Class:
+
+import org.testng.annotations.DataProvider;
+
+public class DataProviderClass {
+
+    @DataProvider(name = "credentials")
+    public static Object[][] provideCredentials() {
+        return new Object[][] {
+            { "admin", "adminPass" },
+            { "user", "userPass" }
+        };
+    }
+}
+
+import org.testng.annotations.Test;
+
+public class LoginTest {
+
+    @Test(dataProvider = "credentials", dataProviderClass = DataProviderClass.class)
+    public void loginTest(String username, String password) {
+        System.out.println("Logging in with Username: " + username + " and Password: " + password);
+    }
+}
+
+DataProvider with Iterator<Object[]>:
+
+If you want more control over the data or need to pull data from an external source, you can use Iterator<Object[]> instead of a 2D array.
+ This allows you to generate test data dynamically.
+
+   @DataProvider(name = "iteratorData")
+     public Iterator<Object[]> provideData() {
+         List<Object[]> data = new ArrayList<>();
+         data.add(new Object[] { "username1", "password1" });
+         data.add(new Object[] { "username2", "password2" });
+         return data.iterator();
+     }
+
+     @Test(dataProvider = "iteratorData")
+     public void loginTest(String username, String password) {
+         System.out.println("Logging in with Username: " + username + " and Password: " + password);
+     }
+
+
+Parallel Execution with DataProvider:
+You can run the test methods using a DataProvider in parallel by setting the parallel attribute in the @DataProvider annotation.
+This will run the test cases in parallel, which can reduce test execution time in larger test suites.
+
+@DataProvider(name = "parallelData", parallel = true)
+public Object[][] provideData() {
+    return new Object[][] {
+        { "user1", "pass1" },
+        { "user2", "pass2" },
+        { "user3", "pass3" }
+    };
+}
+
+@Test(dataProvider = "parallelData")
+public void loginTest(String username, String password) {
+    System.out.println("Executing login test with: " + username + " on thread: " + Thread.currentThread().getId());
+}
+
+Advantages of Using DataProvider:
+Reusability: DataProvider helps in reusing test methods with different sets of input data.
+Flexibility: Easily configurable to fetch data from external sources like databases, files (CSV, Excel), or APIs.
+Dynamic Test Data: You can generate data dynamically rather than hardcoding it, making your tests more flexible.
+Parallel Execution: Allows parallel execution of test methods with different data sets, speeding up the testing process.

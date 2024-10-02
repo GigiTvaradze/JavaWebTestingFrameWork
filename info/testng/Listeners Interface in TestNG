@@ -1,0 +1,107 @@
+
+In TestNG, Listeners are used to listen to the events that occur before, during, and after the execution of a test
+By using listeners, you can perform certain actions like logging, taking screenshots, reporting, etc., based on the state of your test execution.
+
+Commonly Used Listener Interfaces in TestNG:
+IAnnotationTransformer – Used to modify the annotations of a method at runtime.
+IInvokedMethodListener – Monitors before and after a method is invoked.
+ITestListener – Listens to events during test execution (e.g., test start, test success, test failure, etc.).
+ISuiteListener – Listens to the suite-level events before and after the suite starts.
+IExecutionListener – Listens for the start and finish of the entire TestNG execution.
+
+
+Example of Using ITestListener:
+The ITestListener interface is one of the most commonly used listeners in TestNG. It provides various methods that you can override to customize behavior at different points in a test’s lifecycle, such as when a test starts, passes, fails, etc.
+
+Here’s an example:
+
+Step 1: Create a Listener Class
+You need to implement the ITestListener interface in your custom listener class. Below is an example where we log messages for different events:
+
+import org.testng.ITestContext;
+import org.testng.ITestListener;
+import org.testng.ITestResult;
+
+public class CustomListener implements ITestListener {
+
+    @Override
+    public void onTestStart(ITestResult result) {
+        System.out.println("Test started: " + result.getName());
+    }
+
+    @Override
+    public void onTestSuccess(ITestResult result) {
+        System.out.println("Test passed: " + result.getName());
+    }
+
+    @Override
+    public void onTestFailure(ITestResult result) {
+        System.out.println("Test failed: " + result.getName());
+        // Add screenshot logic here for failed tests
+    }
+
+    @Override
+    public void onTestSkipped(ITestResult result) {
+        System.out.println("Test skipped: " + result.getName());
+    }
+
+    @Override
+    public void onStart(ITestContext context) {
+        System.out.println("Test suite started: " + context.getName());
+    }
+
+    @Override
+    public void onFinish(ITestContext context) {
+        System.out.println("Test suite finished: " + context.getName());
+    }
+}
+Step 2: Apply the Listener in TestNG
+There are two ways to register a listener in TestNG.
+
+Using the @Listeners annotation in the test class: You can add the listener class using the @Listeners annotation at the class level.
+
+import org.testng.annotations.Listeners;
+import org.testng.annotations.Test;
+
+@Listeners(CustomListener.class)
+public class TestClass {
+
+    @Test
+    public void testMethod1() {
+        System.out.println("Executing Test Method 1");
+    }
+
+    @Test
+    public void testMethod2() {
+        System.out.println("Executing Test Method 2");
+        throw new RuntimeException("Test failure simulation");
+    }
+}
+
+Defining the listener in the TestNG XML file: You can also specify the listener in your testng.xml file:
+
+<suite name="Suite">
+    <listeners>
+        <listener class-name="CustomListener"/>
+    </listeners>
+
+    <test name="Test">
+        <classes>
+            <class name="TestClass"/>
+        </classes>
+    </test>
+</suite>
+
+Key Methods in ITestListener:
+onTestStart(ITestResult result): Invoked when a test starts.
+onTestSuccess(ITestResult result): Invoked when a test method finishes successfully.
+onTestFailure(ITestResult result): Invoked when a test method fails.
+onTestSkipped(ITestResult result): Invoked when a test method is skipped.
+onStart(ITestContext context): Invoked before the test starts (at the suite level).
+onFinish(ITestContext context): Invoked after all tests in the suite have been run.
+
+Summary:
+Listeners in TestNG are used to customize the behavior of tests during different phases of their lifecycle.
+You can implement various listener interfaces like ITestListener, IInvokedMethodListener, ISuiteListener, etc.
+ITestListener is one of the most commonly used listener interfaces for tracking test execution status (e.g., start, success, failure).
+Listeners can be registered either through the @Listeners annotation or by adding them to the TestNG XML configuration.

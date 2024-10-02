@@ -18,4 +18,12 @@ public class dataProvider {
     public Object[] fdsf(){
         return new Object[]{"",""};
     }
+
+
+    @DataProvider(name = "paral",parallel = true)
+    public Object[][] parall(){
+        return new Object[][]{
+                {},{}
+        };
+    }
 }

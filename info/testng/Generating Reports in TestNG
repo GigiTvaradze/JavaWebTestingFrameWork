@@ -1,0 +1,81 @@
+TestNG comes with default reports, but you can customize or enhance them using third-party libraries like ExtentReports or Allure Reports.
+
+Allure Report Setup and Integration with TestNG:
+
+<dependencies>
+    <!-- Allure TestNG Adapter -->
+    <dependency>
+        <groupId>io.qameta.allure</groupId>
+        <artifactId>allure-testng</artifactId>
+        <version>2.13.9</version>
+    </dependency>
+</dependencies>
+
+
+Step 3: Adding @Step Annotations (Optional)
+You can enhance the detail level of your reports by using the @Step annotation to mark significant steps in your test cases.
+Allure will capture these steps and display them in the report.
+
+import io.qameta.allure.Step;
+
+public class TestSteps {
+
+    @Step("Open Login Page")
+    public void openLoginPage() {
+        // logic to open login page
+    }
+
+    @Step("Login with username: {0} and password: {1}")
+    public void login(String username, String password) {
+        // logic to perform login
+    }
+}
+
+In your TestNG test:
+
+import org.testng.annotations.Test;
+
+public class LoginTest {
+
+    @Test
+    public void testLogin() {
+        TestSteps steps = new TestSteps();
+        steps.openLoginPage();
+        steps.login("user", "password");
+    }
+}
+
+Step 4: Adding Attachments (Optional)
+You can attach screenshots, logs, or any other file as part of your Allure report.
+ This is useful when you want to provide more context for failed test cases.
+
+ import io.qameta.allure.Attachment;
+
+ public class ScreenshotUtil {
+
+     @Attachment(value = "Page Screenshot", type = "image/png")
+     public byte[] attachScreenshot() {
+         // logic to take and return a screenshot as byte array
+         return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+     }
+ }
+Sample Allure Report Overview:
+Dashboard: Shows the overall health of your tests with widgets like passed/failed/skipped tests, trends over time, and the distribution of test statuses.
+Suites: Displays the test results by suite, providing a hierarchical view of the test cases.
+Behaviors: Groups the test cases by stories and features. You can filter results by stories or features.
+Timeline: Displays a timeline of your test executions, showing when each test was started and how long it took.
+History: Provides a historical comparison of test results across multiple test runs, allowing you to track trends and detect flakiness.
+Attachments: View any screenshots, logs, or other files attached during test execution.
+Integration with CI/CD Pipelines:
+Allure can be easily integrated with popular CI tools like Jenkins or GitLab CI. For Jenkins:
+
+Install the Allure Jenkins Plugin via Jenkins’ plugin manager.
+In your Jenkins job configuration, under Post-build Actions, select Allure Report.
+Set the Results directory to allure-results.
+After the build, Jenkins will display an Allure report for each test run.
+Advantages of Allure Reports:
+Clear and Comprehensive Reports: Allure provides detailed information, making it easy to debug failed tests.
+User-Friendly UI: The interactive report interface is clean and easy to navigate.
+Multi-Language Support: Works with many languages and testing frameworks.
+Customization: You can add categories, labels, and attachments, and customize reports to match your project requirements.
+Historical Trends: Tracks the stability of tests over time, which is particularly useful for long-running projects.

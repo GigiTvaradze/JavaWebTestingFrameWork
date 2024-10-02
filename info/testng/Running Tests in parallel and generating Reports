@@ -1,0 +1,42 @@
+Running Tests in Parallel in TestNG:
+
+TestNG provides built-in support for running tests in parallel to improve efficiency.
+You can run tests in parallel by specifying the parallel attribute in the TestNG XML file or using the @Test annotation with specific settings.
+
+You can configure parallel execution in the testng.xml file by specifying the parallel attribute.
+
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="ParallelSuite" parallel="methods" thread-count="3">
+    <test name="ParallelTest">
+        <classes>
+            <class name="TestClass1"/>
+            <class name="TestClass2"/>
+        </classes>
+    </test>
+</suite>
+
+parallel="methods": Runs test methods in parallel.
+thread-count="3": Limits the number of threads TestNG will create. It controls how many methods will run in parallel at the same time.
+
+Other parallel attribute options:
+
+parallel="classes": Runs classes in parallel.
+parallel="tests": Runs <test> blocks in parallel.
+parallel="instances": Runs instances of a class in parallel.
+
+
+
+Method-Level Parallelism Using @Test Annotations
+
+    @Test(threadPoolSize = 3, invocationCount = 6)
+    public void parallelTest() {
+        System.out.println("Thread ID: " + Thread.currentThread().getId());
+    }
+
+threadPoolSize=3:
+ This specifies the number of threads TestNG will use to execute the test method.
+ Here, 3 threads are created to run the test in parallel.
+
+invocationCount=6:
+This specifies how many times the test method will be invoked.
+In this case, the test method will be run 6 times.
